@@ -401,6 +401,11 @@ namespace Quartz.Simpl
 	        return RemoveTrigger(triggerKey, true);
 	    }
 
+        public Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    /// <summary>
 		/// Store the given <see cref="ITrigger" />.
 		/// </summary>

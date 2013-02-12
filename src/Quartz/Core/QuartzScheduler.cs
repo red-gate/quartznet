@@ -1385,6 +1385,18 @@ namespace Quartz.Core
             return resources.JobStore.RetrieveJob(jobKey);
         }
 
+        public virtual Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher)
+        {
+            ValidateState();
+
+            if (matcher == null)
+            {
+                matcher = GroupMatcher<JobKey>.GroupEquals(SchedulerConstants.DefaultGroup);
+            }
+
+            return resources.JobStore.GetScheduledJobDetails(matcher);
+        }
+
         /// <summary>
         /// Get the <see cref="ITrigger" /> instance with the given name and
         /// group.

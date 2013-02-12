@@ -148,6 +148,8 @@ namespace Quartz.Simpl
 
         IJobDetail GetJobDetail(JobKey jobKey);
 
+        Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher);
+
         ITrigger GetTrigger(TriggerKey triggerKey);
 
         TriggerState GetTriggerState(TriggerKey triggerKey);

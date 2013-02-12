@@ -466,6 +466,11 @@ namespace Quartz.Impl
             return sched.GetJobDetail(jobKey);
         }
 
+        public virtual Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher)
+        {
+            return sched.GetScheduledJobDetails(matcher);
+        }
+
         /// <summary>
         /// Calls the equivalent method on the 'proxied' <see cref="QuartzScheduler" />.
         /// </summary>

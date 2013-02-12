@@ -110,5 +110,7 @@ namespace Quartz
         /// <see cref="IJobDetail" /> identical to this one.
         /// </summary>
         JobBuilder GetJobBuilder();
+
+        DateTimeOffset? NextRunTime { get; }
     }
 }

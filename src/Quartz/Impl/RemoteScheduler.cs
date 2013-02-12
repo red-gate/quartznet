@@ -447,6 +447,11 @@ namespace Quartz.Impl
             return CallInGuard(x => x.GetJobDetail(jobKey));
         }
 
+        public virtual Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher)
+        {
+            return CallInGuard(x => x.GetScheduledJobDetails(matcher));
+        }
+
         /// <summary>
         /// Calls the equivalent method on the 'proxied' <see cref="QuartzScheduler" />.
         /// </summary>

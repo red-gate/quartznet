@@ -593,6 +593,8 @@ namespace Quartz
         /// </remarks>
         IJobDetail GetJobDetail(JobKey jobKey);
 
+        Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher);
+
         /// <summary>
         /// Get the <see cref="ITrigger" /> instance with the given key.
         /// </summary>

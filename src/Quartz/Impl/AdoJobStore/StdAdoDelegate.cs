@@ -862,6 +862,49 @@ namespace Quartz.Impl.AdoJobStore
             }
         }
 
+        public Collection.ISet<IJobDetail> SelectScheduledJobDetailsInGroup(ConnectionAndTransactionHolder conn, GroupMatcher<JobKey> matcher, ITypeLoadHelper loadHelper)
+        {
+            using (IDbCommand cmd = PrepareCommand(conn, ReplaceTablePrefix(SqlSelectScheduledJobDetailsInGroup)))
+            {
+                AddCommandParameter(cmd, "jobGroup", ToSqlLikeClause(matcher));
+
+                using (IDataReader rs = cmd.ExecuteReader())
+                {
+                    Collection.HashSet<IJobDetail> list = new Collection.HashSet<IJobDetail>();
+                    while (rs.Read())
+                    {
+                        JobDetailImpl job = new JobDetailImpl();
+
+                        job.Name = rs.GetString(ColumnJobName);
+                        job.Group = rs.GetString(ColumnJobGroup);
+                        job.Description = rs.GetString(ColumnDescription);
+                        job.JobType = loadHelper.LoadType(rs.GetString(ColumnJobClass));
+                        job.Durable = GetBooleanFromDbValue(rs[ColumnIsDurable]);
+                        job.RequestsRecovery = GetBooleanFromDbValue(rs[ColumnRequestsRecovery]);
+
+                        IDictionary map = CanUseProperties ? GetMapFromProperties(rs, 6) : GetObjectFromBlob<IDictionary>(rs, 6);
+
+                        if (map != null)
+                        {
+                            job.JobDataMap = map as JobDataMap ?? new JobDataMap(map);
+                        }
+
+                        job.NextRunTime = GetDateTimeFromDbValue(rs[ColumnNextFireTime]);
+                        // As this returns and ISet<> I need to ensure only one job is returned, and to make sure i return the job with the closest NextRunTime
+                        if (list.Contains(job))
+                        {
+                            var existingJob = list.FirstOrDefault(j => j.Key.Equals(job.Key));
+                            if (existingJob != null && existingJob.NextRunTime > job.NextRunTime)
+                                list.Remove(existingJob);
+                        }
+                        list.Add(job);
+                    }
+
+                    return list;
+                }
+            }
+        }
+
 
         protected static string ToSqlLikeClause<T>(GroupMatcher<T> matcher) where T : Key<T>
         {

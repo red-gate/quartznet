@@ -221,6 +221,14 @@ namespace Quartz.Impl.AdoJobStore
                 TablePrefixSubst, TableJobDetails, ColumnSchedulerName, SchedulerNameSubst, ColumnJobName, ColumnJobGroup,
                 ColumnJobName, ColumnJobGroup, ColumnDescription, ColumnJobClass, ColumnIsDurable, ColumnRequestsRecovery, ColumnJobDataMap);
 
+#warning working on statement
+        public static readonly string SqlSelectScheduledJobDetailsInGroup =
+            string.Format(CultureInfo.InvariantCulture,
+                "SELECT {0}{1}.{6},{0}{1}.{7},{0}{1}.{8},{0}{1}.{9},{0}{1}.{10},{0}{1}.{11},{0}{1}.{12},{0}{14}.{13} FROM {0}{1} inner join {0}{14} on {0}{1}.{4} = {0}{14}.{4} AND {0}{1}.{5} = {0}{14}.{5} WHERE {0}{1}.{2} = {3} AND {0}{1}.{5} LIKE @jobGroup",
+                TablePrefixSubst, TableJobDetails, ColumnSchedulerName, SchedulerNameSubst, ColumnJobName, ColumnJobGroup,
+                ColumnJobName, ColumnJobGroup, ColumnDescription, ColumnJobClass, ColumnIsDurable, ColumnRequestsRecovery, ColumnJobDataMap,
+                ColumnNextFireTime, TableTriggers);
+
         public static readonly string SqlSelectJobExecutionCount =
             string.Format(CultureInfo.InvariantCulture, "SELECT COUNT({0}) FROM {1}{2} WHERE {3} = {4} AND {5} = @jobName AND {6} = @jobGroup",
                 ColumnTriggerName, TablePrefixSubst, TableFiredTriggers, ColumnSchedulerName, SchedulerNameSubst, ColumnJobName, ColumnJobGroup);

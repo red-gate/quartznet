@@ -215,6 +215,8 @@ namespace Quartz.Impl.AdoJobStore
         /// <returns> an array of <see cref="String" /> job names</returns>
         Collection.ISet<JobKey> SelectJobsInGroup(ConnectionAndTransactionHolder conn, GroupMatcher<JobKey> matcher);
 
+        Collection.ISet<IJobDetail> SelectScheduledJobDetailsInGroup(ConnectionAndTransactionHolder conn, GroupMatcher<JobKey> matcher, ITypeLoadHelper loadHelper);
+
 		//---------------------------------------------------------------------------
 		// triggers
 		//---------------------------------------------------------------------------

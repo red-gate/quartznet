@@ -439,5 +439,7 @@ namespace Quartz.Impl
                 .WithIdentity(Key);
             return b;
         }
+
+        public DateTimeOffset? NextRunTime { get; set; }
     }
 }

@@ -925,6 +925,28 @@ namespace Quartz.Impl.AdoJobStore
         }
 
 
+        public Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher)
+        {
+            // no locks necessary for read...
+            return (Collection.ISet<IJobDetail>)ExecuteWithoutLock(conn => GetScheduledJobDetails(conn, matcher));
+        }
+
+        protected virtual Collection.ISet<IJobDetail> GetScheduledJobDetails(ConnectionAndTransactionHolder conn, GroupMatcher<JobKey> matcher)
+        {
+            Collection.ISet<IJobDetail> jobs;
+
+            try
+            {
+                jobs = Delegate.SelectScheduledJobDetailsInGroup(conn, matcher, TypeLoadHelper);
+            }
+            catch (Exception e)
+            {
+                throw new JobPersistenceException("Couldn't obtain job names: " + e.Message, e);
+            }
+
+            return jobs;
+        }
+
         /// <summary>
         /// Store the given <see cref="ITrigger" />.
         /// </summary>

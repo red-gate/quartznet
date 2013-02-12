@@ -156,6 +156,8 @@ namespace Quartz.Spi
         /// </returns>
         IJobDetail RetrieveJob(JobKey jobKey);
 
+        Collection.ISet<IJobDetail> GetScheduledJobDetails(GroupMatcher<JobKey> matcher);
+
         /// <summary>
         /// Store the given <see cref="ITrigger" />.
         /// </summary>
