@@ -12,20 +12,20 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="build\3.5\release\Quartz\ClientProfile\Quartz.dll" target="lib\net35-client" />
-    <file src="build\3.5\release\Quartz\ClientProfile\Quartz.xml" target="lib\net35-client" />
-    <file src="build\3.5\release\Quartz\ClientProfile\Quartz.pdb" target="lib\net35-client" />
+    <file src="build\3.5\release\Quartz\ClientProfile\RedGate.Quartz.dll" target="lib\net35-client" />
+    <file src="build\3.5\release\Quartz\ClientProfile\RedGate.Quartz.xml" target="lib\net35-client" />
+    <file src="build\3.5\release\Quartz\ClientProfile\RedGate.Quartz.pdb" target="lib\net35-client" />
     
-	<file src="build\3.5\release\Quartz\Quartz.dll" target="lib\net35" />
-    <file src="build\3.5\release\Quartz\Quartz.xml" target="lib\net35" />
-    <file src="build\3.5\release\Quartz\Quartz.pdb" target="lib\net35" />
+	<file src="build\3.5\release\Quartz\RedGate.Quartz.dll" target="lib\net35" />
+    <file src="build\3.5\release\Quartz\RedGate.Quartz.xml" target="lib\net35" />
+    <file src="build\3.5\release\Quartz\RedGate.Quartz.pdb" target="lib\net35" />
 
-    <file src="build\4.0\release\Quartz\ClientProfile\Quartz.dll" target="lib\net40-client" />
-    <file src="build\4.0\release\Quartz\ClientProfile\Quartz.xml" target="lib\net40-client" />
-    <file src="build\4.0\release\Quartz\ClientProfile\Quartz.pdb" target="lib\net40-client" />
+    <file src="build\4.0\release\Quartz\ClientProfile\RedGate.Quartz.dll" target="lib\net40-client" />
+    <file src="build\4.0\release\Quartz\ClientProfile\RedGate.Quartz.xml" target="lib\net40-client" />
+    <file src="build\4.0\release\Quartz\ClientProfile\RedGate.Quartz.pdb" target="lib\net40-client" />
 
-    <file src="build\4.0\release\Quartz\Quartz.dll" target="lib\net40" />
-    <file src="build\4.0\release\Quartz\Quartz.xml" target="lib\net40" />
-    <file src="build\4.0\release\Quartz\Quartz.pdb" target="lib\net40" />
+    <file src="build\4.0\release\Quartz\RedGate.Quartz.dll" target="lib\net40" />
+    <file src="build\4.0\release\Quartz\RedGate.Quartz.xml" target="lib\net40" />
+    <file src="build\4.0\release\Quartz\RedGate.Quartz.pdb" target="lib\net40" />
   </files>
 </package>
