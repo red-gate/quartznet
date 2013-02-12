@@ -52,7 +52,7 @@ _dotCover*/
 *.ReSharper
 *.dotCover
 /package/*
-*.snk
+# *.snk
 *.zip
 website
 /doc/apidoc
