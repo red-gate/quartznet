@@ -51,7 +51,7 @@ _dotCover*/
 /src/Quartz/Quartz.xml
 *.ReSharper
 *.dotCover
-/package/* # Using Nant I want the required packages in source control
+/package/*
 # *.snk
 *.zip
 website
