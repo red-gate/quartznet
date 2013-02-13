@@ -14,11 +14,11 @@
   </if>
 
   <property name="net-40.reference.assembly.path" value="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" overwrite="false" />
-  
+
   <call target="init" />
 
   <target name="init">
-   
+
     <!-- Check target framework -->
     <property name="target.framework" value="3.5" overwrite="false" />
 
@@ -32,7 +32,7 @@
     <property name="dir.build" value="build\${target.framework}\${build.configuration}" />
     <property name="dir.deployment" value="deployment\${target.framework}" />
 
-    
+
     <mkdir dir="${dir.build}" />
 
   </target>
@@ -78,7 +78,7 @@
 
   <target name="build-quartz" >
 
-     <mkdir dir="${buildoutputbasedir}" />
+    <mkdir dir="${buildoutputbasedir}" />
 
     <property name="target.dir" value="${buildoutputbasedir}" />
     <property name="client-profile" value="false" />
@@ -98,32 +98,32 @@
       </fileset>
     </copy>
     <copy todir="${buildoutputbasedir}\ClientProfile\" flatten="true" >
-        <fileset>
-            <include name="${common-logging-dll}" />
-        </fileset>
+      <fileset>
+        <include name="${common-logging-dll}" />
+      </fileset>
     </copy>
-      
+
     <!-- ILMerge Quartz with C5 -->
     <property name="ilmerge.options" value="/targetplatform:&quot;v4,${net-40.reference.assembly.path}&quot;" if="${target.framework == '4.0'}" />
     <property name="ilmerge.options" value="/targetplatform:v2" unless="${target.framework == '4.0'}" />
 
     <foreach item="String" in="Quartz,ClientProfile\Quartz" delim="," property="ilmergefile">
-		<mkdir dir="mergetemp\ClientProfile" />
-        <exec
-        verbose="true"
-        program="tools\ilmerge\ilmerge.exe"
-        commandline="${ilmerge.options} /target:library /keyfile:${build.keyfile} /internalize /out:mergetemp\${ilmergefile}.dll ${buildoutputbasedir}\${ilmergefile}.dll lib\2.0\C5.dll"  />
-        <delete file="${buildoutputbasedir}\${ilmergefile}.dll" />
-		<delete file="${buildoutputbasedir}\${ilmergefile}.pdb" />
-        <move file="mergetemp\${ilmergefile}.dll" tofile="${buildoutputbasedir}\${ilmergefile}.dll" /> 
-        <move file="mergetemp\${ilmergefile}.pdb" tofile="${buildoutputbasedir}\${ilmergefile}.pdb" /> 
-		<delete dir="mergetemp" />
+      <mkdir dir="mergetemp\ClientProfile" />
+      <exec
+      verbose="true"
+      program="tools\ilmerge\ilmerge.exe"
+      commandline="${ilmerge.options} /target:library /keyfile:${build.keyfile} /internalize /out:mergetemp\${ilmergefile}.dll ${buildoutputbasedir}\${ilmergefile}.dll lib\2.0\C5.dll"  />
+      <delete file="${buildoutputbasedir}\${ilmergefile}.dll" />
+      <delete file="${buildoutputbasedir}\${ilmergefile}.pdb" />
+      <move file="mergetemp\${ilmergefile}.dll" tofile="${buildoutputbasedir}\${ilmergefile}.dll" />
+      <move file="mergetemp\${ilmergefile}.pdb" tofile="${buildoutputbasedir}\${ilmergefile}.pdb" />
+      <delete dir="mergetemp" />
     </foreach>
-      
+
   </target>
 
   <target name="compile-quartz" depends="determine-lib-dirs">
-  
+
     <csc
       target="library"
       output="${target.dir}\Quartz.dll"
@@ -154,10 +154,10 @@
         <include name="src/Quartz/Xml/job_scheduling_data_2_0.xsd" />
       </resources>
       <references>
-	    <include name="mscorlib.dll"/>
-		<include name="Microsoft.CSharp.dll"/>
-		<include name="System.Configuration.dll"/>
-		<include name="System.Core.dll"/>
+        <include name="mscorlib.dll"/>
+        <include name="Microsoft.CSharp.dll"/>
+        <include name="System.Configuration.dll"/>
+        <include name="System.Core.dll"/>
         <include name="System.dll" />
         <include name="System.Core.dll" />
         <include name="System.Configuration.dll" />
@@ -169,7 +169,7 @@
         <include name="lib\2.0\C5.dll" if="${c5-collections}" />
       </references>
     </csc>
-     
+
   </target>
 
 
@@ -180,8 +180,8 @@
     <csc
       target="exe"
       output="${buildoutputbasedir}.Examples\Quartz.Examples.exe"
-      debug="${build.debug}" 
-      optimize="${build.optimize}" 
+      debug="${build.debug}"
+      optimize="${build.optimize}"
       define="${build.defines}"
 	  nostdlib="true" noconfig="true">
       <nowarn>
@@ -196,10 +196,10 @@
         <include name="src/Quartz.Examples/**/*.cs" />
       </sources>
       <references>
-	    <include name="mscorlib.dll"/>
-		<include name="Microsoft.CSharp.dll"/>
-		<include name="System.Configuration.dll"/>
-		<include name="System.Core.dll"/>
+        <include name="mscorlib.dll"/>
+        <include name="Microsoft.CSharp.dll"/>
+        <include name="System.Configuration.dll"/>
+        <include name="System.Core.dll"/>
         <include name="System.dll" />
         <include name="System.Data.dll" />
         <include name="${common-logging-dll}" />
@@ -235,7 +235,7 @@
     <property name="nant.settings.currentframework" value="net-${target.framework}" />
 
     <call target="build-server-internal" />
-  </target>  
+  </target>
 
   <target name="build-server-internal" depends="determine-lib-dirs">
 
@@ -244,8 +244,8 @@
     <csc
       target="exe"
       output="${buildoutputbasedir}.Server\Quartz.Server.exe"
-      debug="${build.debug}" 
-      optimize="${build.optimize}" 
+      debug="${build.debug}"
+      optimize="${build.optimize}"
       define="${build.defines}"
 	  nostdlib="true" noconfig="true">
       <nowarn>
@@ -256,10 +256,10 @@
         <include name="${dir.server.src}/Quartz.Server.Core/**/*.cs" />
       </sources>
       <references>
-	    <include name="mscorlib.dll"/>
-		<include name="Microsoft.CSharp.dll"/>
-		<include name="System.Configuration.dll"/>
-		<include name="System.Core.dll"/>
+        <include name="mscorlib.dll"/>
+        <include name="Microsoft.CSharp.dll"/>
+        <include name="System.Configuration.dll"/>
+        <include name="System.Core.dll"/>
         <include name="System.dll" />
         <include name="System.Data.dll" />
         <include name="${common-logging-dll}" />
@@ -277,7 +277,7 @@
         <include name="${topshelf-dll}" />
       </fileset>
     </copy>
-    
+
     <copy file="${dir.server.src}\Quartz.Server\App.config" tofile="${buildoutputbasedir}.Server\Quartz.Server.exe.config" />
     <copy file="${dir.server.src}\Quartz.Server\quartz_jobs.xml" todir="${buildoutputbasedir}.Server" />
     <copy file="${dir.server.src}\Quartz.Server\quartz.config" todir="${buildoutputbasedir}.Server" />
@@ -295,11 +295,11 @@
 
     <mkdir dir="${buildoutputbasedir}.Tests.${test.project}\" />
 
-    <csc 
-      target="library" 
-      output="${buildoutputbasedir}.Tests.${test.project}\Quartz.Tests.${test.project}.dll" 
-      debug="${build.debug}" 
-      optimize="${build.optimize}" 
+    <csc
+      target="library"
+      output="${buildoutputbasedir}.Tests.${test.project}\Quartz.Tests.${test.project}.dll"
+      debug="${build.debug}"
+      optimize="${build.optimize}"
       define="${build.defines}"
 	  nostdlib="true" noconfig="true">
       <nowarn>
@@ -319,11 +319,11 @@
         <include name="src/Quartz.Tests.Unit/Xml/TestData/RichConfiguration_20.xml" />
       </resources>
       <references>
-		<include name="mscorlib.dll"/>
-		<include name="Microsoft.CSharp.dll"/>
-		<include name="System.Configuration.dll"/>
-		<include name="System.Core.dll"/>
-		<include name="System.dll" />
+        <include name="mscorlib.dll"/>
+        <include name="Microsoft.CSharp.dll"/>
+        <include name="System.Configuration.dll"/>
+        <include name="System.Core.dll"/>
+        <include name="System.dll" />
         <include name="System.Data.dll" />
         <include name="${common-logging-dll}" />
         <include name="${nunit-dll}" />
@@ -442,7 +442,7 @@
     <property name="build.optimize" value="true" />
     <property name="build.debug" value="PdbOnly" />
     <property name="build.defines" value="TRACE,STRONG" />
-	<property name="build.keyfile" value="Quartz.Net.snk" />
+    <property name="build.keyfile" value="RedGateQuartz.snk" />
 
     <if test="${c5-collections}" >
       <property name="build.defines" value="${build.defines},C5" />
@@ -508,8 +508,8 @@
         <include name="**/*" />
       </fileset>
     </zip>
-	
-	<exec program="tools\NuGet\NuGet.exe" commandline="pack Quartz.nuspec" />
+
+    <exec program="tools\NuGet\NuGet.exe" commandline="pack Quartz.nuspec" />
 
   </target>
 
@@ -524,27 +524,27 @@
   </target>
 
   <target name="determine-lib-dirs">
-	<property name="nuget-framework" value="net40" />
-	<property name="nuget-framework" value="net35" if="${target.framework == '3.5'}" /> 
-	<property name="common-logging-dll" value="packages/Common.Logging.2.1.2/lib/${nuget-framework}/Common.Logging.dll" />
-	<property name="common-logging-log4net-dll" value="packages/Common.Logging.Log4Net1211.2.1.2/lib/${nuget-framework}/Common.Logging.Log4Net1211.dll" />
-	<property name="nunit-dll" value="packages/NUnit.2.6.2/lib/nunit.framework.dll" />
-	<property name="rhino-mocks-dll" value="packages/RhinoMocks.3.6.1/lib/net/Rhino.Mocks.dll" />
+    <property name="nuget-framework" value="net40" />
+    <property name="nuget-framework" value="net35" if="${target.framework == '3.5'}" />
+    <property name="common-logging-dll" value="packages/Common.Logging.2.1.2/lib/${nuget-framework}/Common.Logging.dll" />
+    <property name="common-logging-log4net-dll" value="packages/Common.Logging.Log4Net1211.2.1.2/lib/${nuget-framework}/Common.Logging.Log4Net1211.dll" />
+    <property name="nunit-dll" value="packages/NUnit.2.6.2/lib/nunit.framework.dll" />
+    <property name="rhino-mocks-dll" value="packages/RhinoMocks.3.6.1/lib/net/Rhino.Mocks.dll" />
     <property name="topshelf-dll" value="packages/TopShelf.3.1.0/lib/net40-full/Topshelf.dll" />
-	
-	<if test="${target.framework == '3.5'}">
-		<property name="topshelf-dll" value="packages/TopShelf.3.1.0/lib/net35/Topshelf.dll" />
-	</if>
-	<property name="log4net-dll" value="packages/log4net.2.0.0/lib/${nuget-framework}-full/log4net.dll" unless="${client-profile}" />
-	<property name="log4net-dll" value="packages/log4net.2.0.0/lib/${nuget-framework}-client/log4net.dll" if="${client-profile}" />
+
+    <if test="${target.framework == '3.5'}">
+      <property name="topshelf-dll" value="packages/TopShelf.3.1.0/lib/net35/Topshelf.dll" />
+    </if>
+    <property name="log4net-dll" value="packages/log4net.2.0.0/lib/${nuget-framework}-full/log4net.dll" unless="${client-profile}" />
+    <property name="log4net-dll" value="packages/log4net.2.0.0/lib/${nuget-framework}-client/log4net.dll" if="${client-profile}" />
   </target>
-  
+
   <target name="build-website">
 
     <loadtasks assembly="lib\other\Anakia.dll" verbose="true" />
 
     <mkdir dir="website" failonerror="false" />
-	<property name="website.src" value="../website" />
+    <property name="website.src" value="../website" />
 
     <anakia
             navigationfile="${website.src}/navigation.xml"
